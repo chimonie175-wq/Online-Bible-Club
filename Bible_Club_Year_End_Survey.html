@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Bible Club - Year End Review</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+        
+        .form-content {
+            padding: 40px 30px;
+        }
+        
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 35px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .question-block:last-child {
+            border-bottom: none;
+        }
+        
+        .question-label {
+            font-size: 18px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .required {
+            color: #d93025;
+            margin-left: 4px;
+        }
+        
+        .input-text,
+        .textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #dadce0;
+            border-radius: 6px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        
+        .input-text:focus,
+        .textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .checkbox-group,
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .checkbox-item,
+        .radio-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+        
+        .checkbox-item:hover,
+        .radio-item:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .checkbox-item input,
+        .radio-item input {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+        
+        .checkbox-item label,
+        .radio-item label {
+            font-size: 15px;
+            color: #333;
+            cursor: pointer;
+            flex: 1;
+        }
+        
+        .rating-scale {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding: 0 10px;
+        }
+        
+        .rating-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .rating-option input[type="radio"] {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+        
+        .rating-label {
+            font-size: 13px;
+            color: #666;
+            text-align: center;
+        }
+        
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding: 0 10px;
+        }
+        
+        .scale-label {
+            font-size: 12px;
+            color: #888;
+            font-style: italic;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .helper-text {
+            font-size: 13px;
+            color: #666;
+            margin-top: 8px;
+            font-style: italic;
+        }
+        
+        @media (max-width: 600px) {
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .form-content {
+                padding: 30px 20px;
+            }
+            
+            .rating-scale {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📖 Online Bible Club</h1>
+            <p>Year End Review & Feedback Survey</p>
+        </div>
+        
+        <div class="form-content">
+            <form id="bibleClubForm">
+                
+                <!-- Name -->
+                <div class="question-block">
+                    <label class="question-label">
+                        Your Name <span class="required">*</span>
+                    </label>
+                    <input type="text" class="input-text" required placeholder="Enter your name">
+                </div>
+                
+                <!-- Email -->
+                <div class="question-block">
+                    <label class="question-label">
+                        Email Address
+                    </label>
+                    <input type="email" class="input-text" placeholder="your.email@example.com">
+                    <p class="helper-text">Optional - for follow-up questions only</p>
+                </div>
+                
+                <!-- Overall Experience Rating -->
+                <div class="question-block">
+                    <label class="question-label">
+                        How would you rate your overall experience this year? <span class="required">*</span>
+                    </label>
+                    <div class="rating-scale">
+                        <div class="rating-option">
+                            <input type="radio" name="overall-rating" value="1" required>
+                            <span class="rating-label">1</span>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="overall-rating" value="2">
+                            <span class="rating-label">2</span>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="overall-rating" value="3">
+                            <span class="rating-label">3</span>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="overall-rating" value="4">
+                            <span class="rating-label">4</span>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="overall-rating" value="5">
+                            <span class="rating-label">5</span>
+                        </div>
+                    </div>
+                    <div class="scale-labels">
+                        <span class="scale-label">Poor</span>
+                        <span class="scale-label">Excellent</span>
+                    </div>
+                </div>
+                
+                <!-- What did we do right -->
+                <div class="question-block">
+                    <label class="question-label">
+                        What did we do right this year? <span class="required">*</span>
+                    </label>
+                    <textarea class="textarea" required placeholder="Share what you appreciated most about our Bible club this year..."></textarea>
+                    <p class="helper-text">Think about: discussions, topics covered, format, community, spiritual growth, etc.</p>
+                </div>
+                
+                <!-- What can we improve -->
+                <div class="question-block">
+                    <label class="question-label">
+                        What can we improve in? <span class="required">*</span>
+                    </label>
+                    <textarea class="textarea" required placeholder="Tell us what we could do better..."></textarea>
+                    <p class="helper-text">Be honest! Your feedback helps us grow and serve you better.</p>
+                </div>
+                
+                <!-- Meeting Frequency Preference -->
+                <div class="question-block">
+                    <label class="question-label">
+                        How often would you like us to meet next year?
+                    </label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" name="frequency" value="weekly" id="weekly">
+                            <label for="weekly">Weekly</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="frequency" value="biweekly" id="biweekly">
+                            <label for="biweekly">Bi-weekly (Every 2 weeks)</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="frequency" value="monthly" id="monthly">
+                            <label for="monthly">Monthly</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="frequency" value="other" id="other-freq">
+                            <label for="other-freq">Other (please specify in comments)</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Topics of Interest for Next Year -->
+                <div class="question-block">
+                    <label class="question-label">
+                        What topics would interest you for next year? <span class="required">*</span>
+                    </label>
+                    <p class="helper-text" style="margin-bottom: 15px;">Select all that apply</p>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="topics" value="prayer" id="prayer">
+                            <label for="prayer">Prayer & Intercession</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="topics" value="faith" id="faith">
+                            <label for="faith">Building Faith & Trust in God</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="topics" value="relationships" id="relationships">
+                            <label for="relationships">Biblical Relationships & Marriage</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="topics" value="purpose" id="purpose">
+                            <label for="purpose">Finding Your Purpose & Calling</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="topics" value="spiritual-warfare" id="spiritual-warfare">
+                            <label for="spiritual-warfare">Spiritual Warfare & Victory</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="topics" value="prophets" id="prophets">
+                            <label for="prophets">Major & Minor Prophets</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="topics" value="psalms" id="psalms">
+                            <label for="psalms">Book of Psalms Study</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="topics" value="parables" id="parables">
+                            <label for="parables">Parables of Jesus</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="topics" value="acts" id="acts">
+                            <label for="acts">Book of Acts & Early Church</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="topics" value="revelation" id="revelation">
+                            <label for="revelation">Book of Revelation & End Times</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="topics" value="holy-spirit" id="holy-spirit">
+                            <label for="holy-spirit">Holy Spirit & Spiritual Gifts</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="topics" value="finances" id="finances">
+                            <label for="finances">Biblical Finances & Stewardship</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="topics" value="evangelism" id="evangelism">
+                            <label for="evangelism">Evangelism & Sharing the Gospel</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="topics" value="apologetics" id="apologetics">
+                            <label for="apologetics">Christian Apologetics & Defending the Faith</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Suggest Your Own Topics -->
+                <div class="question-block">
+                    <label class="question-label">
+                        Suggest topics of interest for next year
+                    </label>
+                    <textarea class="textarea" placeholder="Share any specific Bible books, themes, or topics you'd like us to explore..."></textarea>
+                    <p class="helper-text">Don't see something you're interested in? Let us know!</p>
+                </div>
+                
+                <!-- Format Preference -->
+                <div class="question-block">
+                    <label class="question-label">
+                        What format works best for you?
+                    </label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="format" value="live-discussion" id="live-discussion">
+                            <label for="live-discussion">Live video discussions (Zoom, Google Meet, etc.)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="format" value="recorded" id="recorded">
+                            <label for="recorded">Pre-recorded teachings with Q&A</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="format" value="chat-based" id="chat-based">
+                            <label for="chat-based">Chat-based discussions (WhatsApp, Telegram, Discord)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="format" value="hybrid" id="hybrid">
+                            <label for="hybrid">Hybrid (mix of live and recorded)</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Preferred Meeting Time -->
+                <div class="question-block">
+                    <label class="question-label">
+                        What day/time works best for you?
+                    </label>
+                    <textarea class="textarea" placeholder="Example: Sunday evenings, Wednesday mornings, Saturday afternoons, etc."></textarea>
+                </div>
+                
+                <!-- Would you recommend -->
+                <div class="question-block">
+                    <label class="question-label">
+                        Would you recommend our Bible club to others? <span class="required">*</span>
+                    </label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" name="recommend" value="definitely" id="definitely" required>
+                            <label for="definitely">Definitely yes!</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="recommend" value="probably" id="probably">
+                            <label for="probably">Probably yes</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="recommend" value="maybe" id="maybe">
+                            <label for="maybe">Maybe</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="recommend" value="probably-not" id="probably-not">
+                            <label for="probably-not">Probably not</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="recommend" value="no" id="no">
+                            <label for="no">No</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Additional Comments -->
+                <div class="question-block">
+                    <label class="question-label">
+                        Any additional comments, prayer requests, or suggestions?
+                    </label>
+                    <textarea class="textarea" placeholder="Share anything else on your heart..."></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Feedback</button>
+                
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('bibleClubForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Check if at least one topic is selected
+            const topicCheckboxes = document.querySelectorAll('input[name="topics"]:checked');
+            if (topicCheckboxes.length === 0) {
+                alert('Please select at least one topic of interest for next year.');
+                return;
+            }
+            
+            alert('Thank you for your feedback! Your responses help us serve you better. God bless you! 🙏');
+            
+            // In a real implementation, you would send this data to a server
+            // For now, we'll just log it
+            console.log('Form submitted!');
+            
+            // Optional: Reset the form
+            // this.reset();
+        });
+    </script>
+</body>
+</html>
